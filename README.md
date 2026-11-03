@@ -112,7 +112,7 @@ src/
   components/
     brand/                  Official emblem
     layout/                 Header (dropdowns, mobile menu), footer, language switcher
-    home/                   Homepage sections
+    home/                   Homepage sections — including the film band and its modal
     editorial/              Page hero, breadcrumbs, sections, cards, timeline,
                             gallery viewer, notice search, contact form, empty state
     ui/                     Reveal, button, heading, icons, ornaments
@@ -155,6 +155,12 @@ Defined once in `src/app/globals.css` under `@theme`, derived from the official 
 Gold is deliberately sparse: rules, diamonds, small labels, and calls to action only.
 
 ### The emblem
+
+`public/brand/Igweagu.mp4` is the house's own film, supplied with the brand assets. It plays from
+`src/components/home/film.tsx`, which sits directly under the hero: the thumbnail shows the film's
+own opening frame, and the full recording loads only when the dialog opens. The dialog closes on
+Escape, on its close control or on the backdrop, locks background scrolling, and returns focus to
+the button that opened it. Nothing about the recording's date or contents is asserted on the page.
 
 `public/brand/igweagu-emblem.jpg` is the supplied artwork, unmodified. Its warm-white ground is
 part of the asset, so it is always placed on light surfaces (the header bar) — never masked,

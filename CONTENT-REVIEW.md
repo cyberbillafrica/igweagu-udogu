@@ -69,6 +69,19 @@ carry **2026**. The site treats the observance as a period and records both.
 
 The `/leadership` page states all three positions explicitly rather than filling them.
 
+### 4. The film
+
+`public/brand/Igweagu.mp4` was supplied with the brand assets and now plays from the homepage film
+band. The recording is published **as supplied**, without trimming or re-encoding.
+
+- Its date, location and the names of anyone appearing in it are **not confirmed**, so no caption
+  makes a claim about them; the page says the provenance is pending.
+- The frame carries on-screen titles ("Ndi Igbo Royal Ordained Heritage — NIROH"; "Prophet Ikem
+  Okoyedike · Ebube Agu Prophecy"). These are **not** reproduced as house statements, and the
+  relationship between NIROH and the house is unconfirmed.
+- The secretariat should confirm that the recording may be published, and supply a date and a
+  one-line description for the caption.
+
 ## Editorial wording awaiting approval
 
 These are written by the project, not by the house. They contain no new facts but the house should

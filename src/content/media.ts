@@ -88,6 +88,17 @@ export const media = {
   },
 } as const satisfies Record<string, MediaAsset>;
 
+/**
+ * The house's own film. Unlike the photography above this is not a placeholder:
+ * it was supplied with the brand assets and is served straight from
+ * `public/brand`. `previewSrc` asks for a frame just inside the file so the
+ * thumbnail is never a blank opening frame.
+ */
+export const houseFilm = {
+  src: "/brand/Igweagu.mp4",
+  previewSrc: "/brand/Igweagu.mp4#t=0.5",
+} as const;
+
 export const heritageImages = [media.omenala, media.umunna, media.ndiGboo];
 
 export const allCreditedMedia: MediaAsset[] = Object.values(media);

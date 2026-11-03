@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { Events } from "@/components/home/events";
+import { Film } from "@/components/home/film";
 import { Heritage } from "@/components/home/heritage";
 import { Hero } from "@/components/home/hero";
 import { Intro } from "@/components/home/intro";
@@ -69,6 +70,7 @@ export default async function HomePage({ params }: HomePageProps) {
       />
 
       <Hero locale={locale} hero={t.hero} />
+      <Film film={t.film} />
       <Intro intro={t.intro} />
       <StoryTimeline story={t.story} />
       <VisionMission vision={t.vision} />

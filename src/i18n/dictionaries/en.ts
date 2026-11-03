@@ -84,6 +84,19 @@ export const en = {
     ],
   },
 
+  film: {
+    eyebrow: "The house on film",
+    heading: "Igweagu Udogu, in motion.",
+    body: "The house's own film, supplied with its brand assets. It plays here in the browser — full width, sound under your own control, nothing to download.",
+    cta: "Play the film",
+    close: "Close",
+    modalLabel: "The house's film",
+    label: "Film",
+    format: "MP4 · plays in browser",
+    note: "The recording is published as it was supplied. Its date and provenance are pending confirmation by the secretariat.",
+    unsupported: "Your browser cannot play this recording. The file is available at /brand/Igweagu.mp4.",
+  },
+
   intro: {
     eyebrow: "Who we are",
     heading: "An institution built on kinship, not on paperwork.",
