@@ -263,10 +263,20 @@ export function SiteHeader({ locale, nav, ui }: SiteHeaderProps) {
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-0 z-40 overflow-y-auto bg-royal-950 lg:hidden"
           >
-            <div className="container-page flex min-h-svh flex-col pt-28 pb-10">
-              <p className="text-[0.55rem] uppercase tracking-[0.3em] text-gold-400/80">
-                {nav.sectionsLabel}
-              </p>
+            <div className="container-page flex min-h-svh flex-col pt-6 pb-10">
+              <div className="flex items-center justify-between gap-4 border-b border-ivory-100/10 pb-5">
+                <p className="text-[0.55rem] uppercase tracking-[0.3em] text-gold-400/80">
+                  {nav.sectionsLabel}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label={ui.closeMenu}
+                  className="-mr-2 inline-flex h-11 w-11 shrink-0 items-center justify-center border border-ivory-100/25 text-ivory-100 transition-colors hover:border-gold-400 hover:text-gold-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400"
+                >
+                  <CloseIcon className="h-5 w-5" />
+                </button>
+              </div>
 
               <nav aria-label={nav.sectionsLabel} className="mt-5">
                 <ul className="grid gap-x-8 sm:grid-cols-2">

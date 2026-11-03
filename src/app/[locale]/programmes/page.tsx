@@ -26,8 +26,6 @@ export async function generateMetadata({ params }: ProgrammesPageProps): Promise
     title: "Programmes & initiatives",
     description: t.pages.programmes.lede,
     path,
-    image: pageHeroImages.programmes.src,
-    imageAlt: t.pages.programmes.imageAlt,
   });
 }
 

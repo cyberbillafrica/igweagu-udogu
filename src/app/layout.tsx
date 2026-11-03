@@ -3,7 +3,12 @@ import { Cormorant_Garamond, Manrope } from "next/font/google";
 
 import { defaultLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
-import { absoluteUrl, defaultSocialImage, siteUrl } from "@/lib/site";
+import {
+  absoluteUrl,
+  defaultSocialImage,
+  defaultSocialImageAlt,
+  siteUrl,
+} from "@/lib/site";
 
 import "./globals.css";
 
@@ -57,7 +62,8 @@ export const metadata: Metadata = {
         url: absoluteUrl(defaultSocialImage),
         width: 1200,
         height: 630,
-        alt: "Igweagu Udogu Igbonine Gbulugbulu — The New Covenant",
+        type: "image/jpeg",
+        alt: defaultSocialImageAlt,
       },
     ],
   },
@@ -66,7 +72,7 @@ export const metadata: Metadata = {
     title: "Igweagu Udogu Igbonine Gbulugbulu — The New Covenant",
     description:
       "A covenant of kinship formed in 1996 by the generation born 1967–1976, rooted in Igbo heritage.",
-    images: [absoluteUrl(defaultSocialImage)],
+    images: [{ url: absoluteUrl(defaultSocialImage), alt: defaultSocialImageAlt }],
   },
   robots: { index: true, follow: true },
   formatDetection: { telephone: false },

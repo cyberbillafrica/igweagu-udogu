@@ -35,7 +35,6 @@ export async function generateMetadata({ params }: NoticePageProps): Promise<Met
     path,
     type: "article",
     publishedTime: notice.date,
-    imageAlt: notice.title,
   });
 }
 

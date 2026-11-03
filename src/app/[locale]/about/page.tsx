@@ -26,8 +26,6 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
     title: "About the house",
     description: t.pages.about.lede,
     path,
-    image: pageHeroImages.about.src,
-    imageAlt: t.pages.about.imageAlt,
   });
 }
 

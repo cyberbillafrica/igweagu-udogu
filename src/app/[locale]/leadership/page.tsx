@@ -26,8 +26,6 @@ export async function generateMetadata({ params }: LeadershipPageProps): Promise
     title: "Leadership & structure",
     description: t.pages.leadership.lede,
     path,
-    image: pageHeroImages.leadership.src,
-    imageAlt: t.pages.leadership.imageAlt,
   });
 }
 

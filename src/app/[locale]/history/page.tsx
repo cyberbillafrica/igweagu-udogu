@@ -27,8 +27,6 @@ export async function generateMetadata({ params }: HistoryPageProps): Promise<Me
     title: "Our history",
     description: t.pages.history.lede,
     path,
-    image: pageHeroImages.history.src,
-    imageAlt: t.pages.history.imageAlt,
   });
 }
 

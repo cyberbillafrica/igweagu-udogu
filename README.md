@@ -58,7 +58,10 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.example
 ```
 
 This origin is used for canonical URLs, Open Graph images and the sitemap. Without it the app
-falls back to `http://localhost:3000`, which is correct for local development only.
+falls back to `http://localhost:3000`, which is correct for local development only. On Vercel the
+build falls back to the provider's own production URL, so a deployment there never advertises
+`localhost`; on any other host set `NEXT_PUBLIC_SITE_URL` explicitly — a `localhost` `og:image`
+is the reason a link shared on WhatsApp shows no picture at all.
 Firebase variables are listed in `.env.example` but are not read until Milestone 3.
 **No secrets are committed.**
 
@@ -120,6 +123,8 @@ src/
                             page images, media registry
   i18n/                     Locale config, dictionary loader, English dictionaries
   lib/                      cn(), canonical site URL, page metadata helper
+scripts/
+  generate-og.mjs           Builds the shared 1200×630 social card
 ```
 
 ### Copy and internationalisation
@@ -135,6 +140,11 @@ dictionary as props — none of them hard-code copy. To add Igbo:
 Routes, `hreflang`, the language switcher, sitemap entries and static params all derive from that
 config. Until then Igbo renders as an unavailable option — never as partial or machine
 translation.
+
+The dictionaries hold roughly 600 strings. Two things sit outside them and also need a decision
+before Igbo goes live: the `<title>`/description literals in each route's `generateMetadata`, and
+the structured records in `src/content/` (notices, events, gallery captions, contact channels),
+which are single-language modules today and would need per-locale fields.
 
 Structured records that will move to Firestore — notices, events, gallery images, contact
 channels — live in `src/content/` behind exported types. The page components read those types, so
@@ -166,6 +176,25 @@ the button that opened it. Nothing about the recording's date or contents is ass
 part of the asset, so it is always placed on light surfaces (the header bar) — never masked,
 cropped or recoloured. `src/app/icon.png` and `apple-icon.png` are square favicon crops padded
 with the artwork's own white ground.
+
+### Social sharing card
+
+Every route shares one card, `public/images/og-default.jpg`: the official emblem and wordmark,
+1200×630, served as `og:image` and `twitter:image` with `og:image:width`, `:height`, `:type` and
+`:alt` alongside the per-page title and description. One identical card is deliberate — a link
+pasted into WhatsApp, Facebook, X or LinkedIn shows the house's mark rather than whichever
+photograph that page leads with, and the crawlers warm a single cached URL.
+
+Regenerate it after any change to the emblem, the wordmark or the palette:
+
+```bash
+node scripts/generate-og.mjs
+```
+
+The script renders the card in headless Chrome (Chrome or Edge must be installed) so it uses the
+real Cormorant Garamond and Manrope faces, downloads those two TTFs into `.tmp/fonts` on first
+run, and writes an 84 KB JPEG. WhatsApp caches previews aggressively: after a redeploy, expect it
+to keep the old preview for a while, or re-share with a query string to force a refetch.
 
 ## Content status
 

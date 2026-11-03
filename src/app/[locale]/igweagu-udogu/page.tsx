@@ -27,8 +27,6 @@ export async function generateMetadata({ params }: IgweaguPageProps): Promise<Me
     title: "Igweagu Udogu",
     description: t.pages.igweagu.lede,
     path,
-    image: pageHeroImages.igweagu.src,
-    imageAlt: t.pages.igweagu.imageAlt,
   });
 }
 

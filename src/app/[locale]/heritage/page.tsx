@@ -28,8 +28,6 @@ export async function generateMetadata({ params }: HeritagePageProps): Promise<M
     title: "Igbo heritage",
     description: t.pages.heritage.lede,
     path,
-    image: pageHeroImages.heritage.src,
-    imageAlt: t.pages.heritage.imageAlt,
   });
 }
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import { CloseIcon, PlayIcon } from "@/components/ui/icons";
 import { houseFilm } from "@/content/media";
@@ -15,9 +16,13 @@ type FilmProps = {
  *
  * The still is the film's own opening frame (`#t=0.5` asks the browser for a
  * frame just inside the file, so the thumbnail is never a blank first frame),
- * and the full recording only loads when the dialog opens. The dialog traps
- * nothing but closes on Escape, on the close control, or on the backdrop, and
- * returns focus to the button that opened it.
+ * and the full recording only loads when the dialog opens.
+ *
+ * The dialog is portalled to the document body: the band uses `isolation:
+ * isolate`, which would otherwise trap a fixed overlay inside the band's
+ * stacking context and leave the sticky site header painting over the close
+ * control on shorter desktop viewports. It closes on Escape, on the close
+ * control, or on the backdrop, and returns focus to the button that opened it.
  */
 export function Film({ film }: FilmProps) {
   const [open, setOpen] = useState(false);
@@ -112,42 +117,51 @@ export function Film({ film }: FilmProps) {
         </figure>
       </div>
 
-      {open ? (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={film.modalLabel}
-          className="fixed inset-0 z-[90] flex items-center justify-center bg-royal-950/95 p-4 backdrop-blur-sm md:p-8"
-          onClick={close}
-        >
-          <div className="w-full max-w-5xl" onClick={(event) => event.stopPropagation()}>
-            <div className="flex items-center justify-between gap-4 pb-3">
-              <p className="text-[0.55rem] uppercase tracking-[0.2em] text-ivory-200/70">
-                {film.modalLabel}
-              </p>
-              <button
-                ref={closeRef}
-                type="button"
-                onClick={close}
-                className="inline-flex min-h-[2.75rem] items-center gap-2 border border-ivory-100/25 px-4 py-3 text-[0.58rem] uppercase tracking-[0.18em] text-ivory-100 transition-colors hover:border-gold-400 hover:text-gold-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400"
-              >
-                <CloseIcon className="h-3.5 w-3.5" />
-                {film.close}
-              </button>
-            </div>
-
-            <video
-              src={houseFilm.src}
-              controls
-              autoPlay
-              playsInline
-              className="max-h-[76svh] w-full bg-black object-contain"
+      {open && typeof document !== "undefined"
+        ? createPortal(
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={film.modalLabel}
+              className="fixed inset-0 z-[120] overflow-y-auto bg-royal-950/95 backdrop-blur-sm"
+              onClick={close}
             >
-              {film.unsupported}
-            </video>
-          </div>
-        </div>
-      ) : null}
+              <div className="flex min-h-full items-center justify-center p-4 md:p-8">
+                <div
+                  className="w-full max-w-5xl"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <div className="flex items-start justify-between gap-4 pb-3">
+                    <p className="pt-3 text-[0.55rem] uppercase tracking-[0.2em] text-ivory-200/70">
+                      {film.modalLabel}
+                    </p>
+                    <button
+                      ref={closeRef}
+                      type="button"
+                      onClick={close}
+                      aria-label={film.close}
+                      className="inline-flex min-h-[2.75rem] shrink-0 items-center gap-2 border border-ivory-100/25 bg-royal-950/80 px-3 py-2.5 text-[0.58rem] uppercase tracking-[0.18em] text-ivory-100 transition-colors hover:border-gold-400 hover:text-gold-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 sm:px-4 sm:py-3"
+                    >
+                      <CloseIcon className="h-4 w-4" />
+                      <span className="hidden sm:inline">{film.close}</span>
+                    </button>
+                  </div>
+
+                  <video
+                    src={houseFilm.src}
+                    controls
+                    autoPlay
+                    playsInline
+                    className="max-h-[min(76svh,calc(100svh-9rem))] w-full bg-black object-contain"
+                  >
+                    {film.unsupported}
+                  </video>
+                </div>
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
     </section>
   );
 }
